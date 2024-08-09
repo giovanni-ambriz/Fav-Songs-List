@@ -19,8 +19,12 @@ export function addNewSong(song: Songs): Promise<Songs[]> {
   return db('favorite_songs').insert(song)
 }
 
-export function updateListened(id: number, listened: boolean): Promise<Songs> {
-  return db('favorite_songs').where({ id }).update({ listened })
+export function updateListened(id: number): Promise<Songs> {
+  return db('favorite_songs').where({ id }).update('listened', true)
+}
+
+export function updateNotListened(id: number): Promise<Songs> {
+  return db('favorite_songs').where({ id }).update('listened', false)
 }
 
 export function getSongsByArtist(artist: string): Promise<Songs[]> {

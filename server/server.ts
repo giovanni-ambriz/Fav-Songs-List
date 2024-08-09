@@ -1,10 +1,12 @@
 import * as Path from 'node:path'
-
+import songs from './routes/songs'
 import express from 'express'
 
 const server = express()
 server.use(express.json())
 
+server.use('/api/v1/songs', songs)
+server.use('/api/v1/songs/:id', songs)
 // ADD YOUR API ROUTES HERE
 
 if (process.env.NODE_ENV === 'production') {
