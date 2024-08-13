@@ -1,16 +1,15 @@
 interface Props {
-  id: number
   name: string
   artist: string
   album: string
   listened: boolean
 }
 
-export default function Song({ id, name, artist, listened }: Props) {
+export default function Song({ name, artist, album, listened }: Props) {
   return (
     <div>
-      <p key={id}>{name} by {artist}</p>
-      {listened && <p>I know this song</p>}
+      <p><b>{name}</b> by <b>{artist}</b> from the album: <b>"{album}"</b></p>
+      {listened ? <p><i>I know the lyrics of this song</i></p> : <p><i>I don't know the lyrics yet</i></p>}
     </div>
   )
 }

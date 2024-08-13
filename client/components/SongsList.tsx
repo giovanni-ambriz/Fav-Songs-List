@@ -1,32 +1,22 @@
-
 import Song from "./Song"
-export default function SongsList() {
+import { useQuery } from "@tanstack/react-query"
+import { fetchSongs } from "../apis/apiClient"
 
-  const songs = [
-    {
-      name: "Good For Nothing",
-      artist: "DRAMA",
-      album: "Dance Without Me",
-      listened: false,
-    },
-    {
-      name: "Linger",
-      artist: "The Cranberries",
-      album: "Everybody Else Is Doing it, So Why Cant We",
-      listened: true,
-    },
-    {
-      name: "Lovely Day",
-      artist: "Bill Withers",
-      album: "Menagerie",
-      listened: true,
-    }
-  ]
+export default function SongsList() {
+  const { data: songs, isPending, isError } = useQuery({ queryKey: ['songs'], queryFn: () => fetchSongs() })
+
+  if (isError) {
+    return <p>Something went wrong...</p>
+  }
+
+  if (isPending) {
+    return <p>Loading...</p>
+  }
 
   return (
     <>
-      {songs.map((songs) => {
-        return <Song key={songs.id} name={songs.name} artist={songs.artist} listened={songs.listened} />
+      {songs.map((song, i) => {
+        return <Song key={i} name={song.name} artist={song.artist} album={song.album} listened={song.listened} />
       })}
     </>
   )
