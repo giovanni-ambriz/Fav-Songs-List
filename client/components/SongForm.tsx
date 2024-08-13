@@ -8,13 +8,19 @@ export default function SongForm() {
   const [newSong, setNewSong] = useState('')
   const [newArtist, setNewArtist] = useState('')
   const [newAlbum, setNewAlbum] = useState('')
-  const [newListened, setNewListened] = useState('')
+  const [newListened, setNewListened] = useState(false)
 
 
   const queryClient = useQueryClient()
   const addMutation = useMutation({
     mutationFn: (songs: SongsData) => addSong(songs),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['songs'] })
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['songs'] })
+      setNewSong('')
+      setNewArtist('')
+      setNewAlbum('')
+      setNewListened(false)
+    }
   })
 
 
@@ -49,7 +55,7 @@ export default function SongForm() {
         <label htmlFor="album">Album: </label>
         <input onChange={handleAlbumChange} value={newAlbum} id="album"></input>
         <label htmlFor="listened">Do you know the lyrics?: </label>
-        <input onChange={handleListenedChange} type="checkbox" value={newListened} id="listened"></input>
+        <input onChange={handleListenedChange} type="checkbox" id="listened"></input>
         <button>Submit</button>
       </form>
     </>

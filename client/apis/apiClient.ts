@@ -16,3 +16,7 @@ export async function fetchSongById(id: number): Promise<Songs> {
 export async function addSong(newSong: SongsData) {
   await request.post(rootURL).send(newSong)
 }
+
+export async function deleteSong(id: number): Promise<Songs> {
+  await request.delete(`${rootURL}/${id}`)
+}
