@@ -48,7 +48,7 @@ export default function SongForm() {
   return (
     <>
       <h2>Add a new song:</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='form'>
         <label htmlFor="name">Name: </label>
         <input onChange={handleChange} value={newSong} id="name"></input>
         <label htmlFor="artist">Artist: </label>
